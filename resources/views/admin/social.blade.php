@@ -2,6 +2,6 @@
 @section('title','home')
 @section('content')
     <?php
-    echo url()->full()." : ".url()->current().":".url()->previous();
+    echo '<H1>social</H1>';
     ?>
 @endsection

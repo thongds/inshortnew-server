@@ -22,3 +22,5 @@ Route::get('/insert/{email}','UserController@insertUser');
 Route::get('admin','AdminController@index');
 Route::post('admin/login','AdminController@login')->name('admin');
 Route::get('admin/login','AdminController@login')->name('admin');
+Route::get('admin/social','AdminController@social');
+Route::get('admin/news','AdminController@news');
