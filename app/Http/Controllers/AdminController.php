@@ -40,7 +40,35 @@ class AdminController extends Controller{
         return view('admin.addnews');
     }
     public function socialsetting(Request $request){
-        return view('admin.socialsetting');
+        if($request->input('active')!=null){
+
+            if($request->input('type') =='social'){
+                $active = $request->input('active');
+                $id = $request->input('id');
+                $db = DB::table('social_info')->where('id',$id)->update(['status' => $active]);
+
+            }
+            if($request->input('type') =='fanpage'){
+                $active = $request->input('active');
+                $id = $request->input('id');
+                $db = DB::table('fan_page')->where('id',$id)->update(['status' => $active]);
+            }
+
+        }
+        if($request->input('delete')!=null && $request->input('delete')==true){
+            if($request->input('type') =='social'){
+                $id = $request->input('id');
+                $db = DB::table('social_info')->where('id',$id)->delete();
+
+            }
+            if($request->input('type') =='fanpage'){
+                $id = $request->input('id');
+                $db = DB::table('fan_page')->where('id',$id)->delete();
+            }
+        }
+        $social_data = DB::table('social_info')->get();
+        $fanpage_data = DB::table('fan_page')->get();
+        return view('admin.socialsetting',['social_data'=>$social_data,'fanpage_data'=>$fanpage_data]);
     }
     public function newssetting(Request $request){
         return view('admin.newssetting');
