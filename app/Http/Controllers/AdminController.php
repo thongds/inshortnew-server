@@ -8,6 +8,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller{
 
@@ -24,10 +27,63 @@ class AdminController extends Controller{
 
         return view('admin.login');
     }
-    public function social(Request $request){
-        return view('admin.social');
+    public function listsocial(Request $request){
+        return view('admin.listsocial');
     }
-    public function news(Request $request){
-        return view('admin.news');
+    public function addsocial (Request $request){
+        return view('admin.addsocial');
     }
+    public function listnews(Request $request){
+        return view('admin.listnews');
+    }
+    public function addnews(Request $request){
+        return view('admin.addnews');
+    }
+    public function socialsetting(Request $request){
+        return view('admin.socialsetting');
+    }
+    public function newssetting(Request $request){
+        return view('admin.newssetting');
+    }
+    public function addnewsocial(Request $request){
+        if($request->isMethod('post')){
+            $social_name = $request->input('social_name');
+            $social_logo = $request->file('social_logo');
+            $video_tag = $request->file('video_tag');
+            $social_logo_url = $this->_getFilepath($social_logo);
+            $video_tag_url = $this->_getFilepath($video_tag);
+
+            DB::table('social_info')->insert(['name'=>$social_name,'logo'=>$social_logo_url,
+                'video_tag' =>$video_tag_url]);
+            return view('admin.addnewsocial',['url'=>$social_logo_url]);
+        }
+        return view('admin.addnewsocial',['url' =>'']);
+    }
+    public function addnewfanpage(Request $request){
+        $social_data = DB::table('social_info')->where('status',1)->get();
+        if($request->isMethod('post')){
+            $fanpage_name = $request->input('fanpage_name');
+            $fanpage_logo = $request->file('fanpage_logo');
+            $fanpage_logo_url = $this->_getFilepath($fanpage_logo);
+            $active = $request->input('active');
+            $socia_info_id = $request->input('social_info_id');
+            $active = $active == NULL?0:1;
+            $value = DB::table('fan_page')->insert(['name'=>$fanpage_name,'logo'=>$fanpage_logo_url,
+                'status' => $active,'social_info_id' =>$socia_info_id]);
+            if($value){
+                return view('admin.addnewfanpage',['social_data'=> $social_data] );
+            }
+        }
+
+        return view('admin.addnewfanpage',['social_data' =>$social_data]);
+    }
+    private function _getFilepath($file_upload){
+        if($file_upload == null)
+            return '';
+        $file_name = time().$file_upload->getFilename().'.'.$file_upload->getClientOriginalExtension();
+        $file_upload->move(public_path("uploads"), $file_name);
+
+        return  url('/').'/uploads/'.$file_name;
+    }
+
 }

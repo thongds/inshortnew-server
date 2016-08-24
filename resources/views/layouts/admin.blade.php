@@ -62,21 +62,20 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="{{ url('/admin/social') }}">Social</a></li>
-                <li><a href="{{url('/admin/news')}}">News</a></li>
-
+                <a href="#" class="active">Data</a>
+                <li ><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{ url('/admin/listsocial') }}">Social Media</a></li>
+                <li><a href="{{url('/admin/listnews')}}"> News Media</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-                <li><a href="">Nav item</a></li>
+                <a href="">Setting</a></br>
+                <li><a href="{{ url('/admin/socialsetting') }}">Social setting</a></li>
+                <li><a href="{{url('/admin/newssetting')}}">News setting</a></li>
+            </ul>
 
-            </ul>
-            <ul class="nav nav-sidebar">
-                <li><a href="">Nav item again</a></li>
-            </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">@yield('title')</h1>
+            <h1 class="page-header" style="color:cornflowerblue">@yield('title')</h1>
 
          @yield('content')
         </div>

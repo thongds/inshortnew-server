@@ -35,9 +35,7 @@
 <body>
 
 <div class="container">
-    {!! Form::open(array('url' => 'AdminController/index')) !!}
 
-    {!! Form::close() !!}
     <?php echo Form::open(array('route' => 'admin', 'method' => 'post','class' => 'form-signin'));
             ?>
     <h2 class="form-signin-heading">Who Are You?</h2>
