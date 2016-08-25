@@ -22,12 +22,11 @@ Route::get('/insert/{email}','UserController@insertUser');
 Route::get('admin','AdminController@index');
 Route::post('admin/login','AdminController@login')->name('admin');
 Route::get('admin/login','AdminController@login')->name('admin');
+
+
 Route::get('admin/listsocial','AdminController@listsocial');
 Route::get('admin/addsocial','AdminController@addsocial');
-Route::get('admin/addnews','AdminController@addnews');
-Route::get('admin/listnews','AdminController@listnews');
 Route::get('admin/socialsetting','AdminController@socialsetting');
-Route::get('admin/newssetting','AdminController@newssetting');
 
 Route::get('admin/addnewsocial','AdminController@addnewsocial');
 Route::post('admin/addnewsocial','AdminController@addnewsocial')->name('addnewsocial');
@@ -35,3 +34,20 @@ Route::post('admin/addnewsocial','AdminController@addnewsocial')->name('addnewso
 
 Route::get('admin/addnewfanpage','AdminController@addnewfanpage');
 Route::post('admin/addnewfanpage','AdminController@addnewfanpage')->name('addnewfanpage');
+
+/* news controller*/
+
+
+Route::get('admin/newssetting','AdminNewsController@index');
+Route::get('admin/listnews','AdminNewsController@listNewsmedia');
+
+Route::get('admin/addnews','AdminNewsController@addNewspaper');
+Route::post('admin/addnews','AdminNewsController@addNewspaper')->name('addNewspaper');
+
+
+Route::get('admin/addnewcategory','AdminNewsController@addNewCategory');
+Route::post('admin/addnewcategory','AdminNewsController@addNewCategory')->name('addNewCategory');
+
+
+Route::get('admin/addnewsmedia','AdminNewsController@addNewsMedia');
+Route::post('admin/addnewsmedia','AdminNewsController@addNewsMedia')->name('addNewsMedia');
