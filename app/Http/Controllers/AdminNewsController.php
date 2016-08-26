@@ -43,6 +43,8 @@ class AdminNewsController extends Controller{
         return view('admin.news.index',['category'=>$category,'newspaper'=>$newspaper]);
     }
     public function listNewsmedia(Request $request){
+            $page = $request->input('page');
+            var_dump($page);
             if($request->input('active')!=null){
 
                 if($request->input('type') =='news'){
@@ -59,8 +61,8 @@ class AdminNewsController extends Controller{
 
                 }
             }
-            $news = DB::table('news')->paginate(10);
-            return view('admin.news.listnews_media',['news'=>$news]);
+            $news = DB::table('news')->paginate(5);
+            return view('admin.news.listnews_media',['news'=>$news,'page' =>$page]);
     }
     public function addNewsMedia(Request $request){
         if($request->isMethod('post')){

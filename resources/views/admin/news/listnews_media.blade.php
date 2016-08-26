@@ -19,25 +19,29 @@
 
        <tr>
            <?php
+
            foreach ($news as $data){
-               $delete_url =url()->current().'?type=news&delete=true&id='.$data->id;
+               $delete_url =url()->current().'?type=news&page='.$page.'&delete=true&id='.$data->id;
                $edit_url = url('/').'/admin/addnewsmedia?id='.$data->id;
                if($data->status == 0){
                    $class = "danger";
-                   $active_url =url()->current().'?type=news&active=1&id='.$data->id;
+                   $active_url =url()->current().'?type=news&page='.$page.'&active=1&id='.$data->id;
                    $status_button = '&nbsp;<a href='.$active_url.' <button type="button" class="btn btn-success">active</button></a>';
                }else{
                    $class = "";
-                   $active_url =url()->current().'?type=news&active=0&id='.$data->id;
+                   $active_url =url()->current().'?type=news&page='.$page.'&active=0&id='.$data->id;
                    $status_button = '&nbsp;<a href='.$active_url.' <button type="button" class="btn btn-warning">deactive</button></a>';
                }
-
+               $color =str_word_count($data->post_content)>100? '#D0021B' : '#165CAE';
                echo'<tr class ="'.$class.'">';
                echo '<td>'.$data->post_title.'</td>';
-               echo '<td>'.$data->post_content.'</td>';
+               echo '<td>'.$data->post_content.'<br><br><label style="color :'.$color.'">'. str_word_count($data->post_content).' words</label></td>';
                echo '<td><a href="'.$data->full_link.'">'.$data->full_link.'</a></td>';
-               echo '<td> <img src="'.$data->post_image.'"style="width:80px;height:80px;"></td>';
-               echo '<td><a href="'.$data->video_link.'">'.$data->video_link.'</a></td>';
+               echo '<td> <a href="'.$data->post_image.'"> <img src="'.$data->post_image.'"style="width:80px;height:80px;"></a></td>';
+               if($data->video_link!='')
+                    echo '<td><video width="200" height="200" controls><source src="'.$data->video_link.'"></video></td>';
+               else
+                   echo '<td></td>';
                echo '<td><a href='.$edit_url.'><button type="button" class="btn btn-success">edit</button></a><br><br><a href='.$delete_url.'><button type="button" class="btn btn-danger">delete</button></a></br><br>
                         '.$status_button.'
                     </td>';
