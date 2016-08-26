@@ -64,7 +64,7 @@
             <ul class="nav nav-sidebar">
                 <a href="#" class="active">Data</a>
                 <li ><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="{{ url('/admin/listsocial') }}">Social Media</a></li>
+                <li><a href="{{ url('admin/socialmedia') }}">Social Media</a></li>
                 <li><a href="{{url('/admin/listnews')}}"> News Media</a></li>
             </ul>
             <ul class="nav nav-sidebar">

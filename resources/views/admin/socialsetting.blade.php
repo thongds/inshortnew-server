@@ -46,6 +46,7 @@
         <?php endif;?>
         </tbody>
     </table>
+    {{$social_data->links()}}
     <br><br>
     <table class="table table table-striped">
         <h2 style="color: #CC3300"> <u>Fanpage</u></h2>
@@ -86,8 +87,7 @@
         <? endif?>
         </tbody>
     </table>
-
-
+    {{$fanpage_data->links()}}
 
 
 

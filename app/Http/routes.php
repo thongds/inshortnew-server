@@ -51,3 +51,12 @@ Route::post('admin/addnewcategory','AdminNewsController@addNewCategory')->name('
 
 Route::get('admin/addnewsmedia','AdminNewsController@addNewsMedia');
 Route::post('admin/addnewsmedia','AdminNewsController@addNewsMedia')->name('addNewsMedia');
+
+/* social media controller */
+
+
+Route::get('admin/socialmedia','AdminSocialMediaController@index');
+
+
+Route::get('admin/addnewsocialmedia','AdminSocialMediaController@addNewSocialMedia');
+Route::post('admin/addnewsocialmedia','AdminSocialMediaController@addNewSocialMedia')->name('addNewSocialMedia');

@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -66,8 +67,8 @@ class AdminController extends Controller{
                 $db = DB::table('fan_page')->where('id',$id)->delete();
             }
         }
-        $social_data = DB::table('social_info')->get();
-        $fanpage_data = DB::table('fan_page')->get();
+        $social_data = DB::table('social_info')->paginate(5,['*'],'social');
+        $fanpage_data = DB::table('fan_page')->paginate(5,['*'],'fan_page');
         return view('admin.socialsetting',['social_data'=>$social_data,'fanpage_data'=>$fanpage_data]);
     }
     public function newssetting(Request $request){

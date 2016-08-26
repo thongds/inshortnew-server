@@ -38,8 +38,8 @@ class AdminNewsController extends Controller{
                 $db = DB::table('category')->where('id',$id)->delete();
             }
         }
-        $category = DB::table('category')->get();
-        $newspaper = DB::table('newspaper')->get();
+        $category = DB::table('category')->paginate(5,['*'],'category');
+        $newspaper = DB::table('newspaper')->paginate(5,['*'],'newspaper');
         return view('admin.news.index',['category'=>$category,'newspaper'=>$newspaper]);
     }
     public function listNewsmedia(Request $request){
@@ -59,7 +59,7 @@ class AdminNewsController extends Controller{
 
                 }
             }
-            $news = DB::table('news')->get();
+            $news = DB::table('news')->paginate(10);
             return view('admin.news.listnews_media',['news'=>$news]);
     }
     public function addNewsMedia(Request $request){
@@ -73,24 +73,41 @@ class AdminNewsController extends Controller{
             $is_video = $request->input('is_video') == NULL?0:1;
             $status  = $request->input('status') == NULL ?0:1;
             $full_link = $request->input('full_link');
-            $result = DB::table('news')->insert(['post_title' =>$post_title,
-                'post_content' => $post_content,
-                'video_link' => $video_link,
-                'post_image' => $post_image,
-                'category_id' => $category_id,
-                'newspaper_id' => $newspaper_id,
-                'is_video' => $is_video,
-                'created' =>time(),
-                'full_link' => $full_link,
-                'status' =>$status
-            ]);
+            if($request->input('is_update') >0)
+                $result = DB::table('news')->where('id',$request->input('is_update'))->update(['post_title' =>$post_title,
+                    'post_content' => $post_content,
+                    'video_link' => $video_link,
+                    'post_image' => $post_image,
+                    'category_id' => $category_id,
+                    'newspaper_id' => $newspaper_id,
+                    'is_video' => $is_video,
+                    'created' =>time(),
+                    'full_link' => $full_link,
+                    'status' =>$status
+                ]);
+            else
+                $result = DB::table('news')->insert(['post_title' =>$post_title,
+                    'post_content' => $post_content,
+                    'video_link' => $video_link,
+                    'post_image' => $post_image,
+                    'category_id' => $category_id,
+                    'newspaper_id' => $newspaper_id,
+                    'is_video' => $is_video,
+                    'created' =>time(),
+                    'full_link' => $full_link,
+                    'status' =>$status
+                ]);
             if(!$result){
                 var_dump($result);exit;
             }
         }
+        $update_data = null;
+        $id = $request->input('id') !=null ? $request->input('id'):-1;
+        if($id >0)
+            $update_data = DB::table('news')->where('id',$id)->get();
         $category = DB::table('category')->where('status',1)->get();
         $newspaper = DB::table('newspaper')->where('status',1)->get();
-        return view('admin.news.add_news_media',['category'=>$category,'newspaper'=>$newspaper]);
+        return view('admin.news.add_news_media',['category'=>$category,'newspaper'=>$newspaper,'update_data' =>$update_data]);
     }
     public function addNewspaper(Request $request){
         if($request->isMethod('post')){
