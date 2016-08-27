@@ -37,7 +37,6 @@ Route::post('admin/addnewfanpage','AdminController@addnewfanpage')->name('addnew
 
 /* news controller*/
 
-
 Route::get('admin/newssetting','AdminNewsController@index');
 Route::get('admin/listnews','AdminNewsController@listNewsmedia');
 
@@ -60,3 +59,15 @@ Route::get('admin/socialmedia','AdminSocialMediaController@index');
 
 Route::get('admin/addnewsocialmedia','AdminSocialMediaController@addNewSocialMedia');
 Route::post('admin/addnewsocialmedia','AdminSocialMediaController@addNewSocialMedia')->name('addNewSocialMedia');
+
+Route::get('api/news/getnews','Api\v1\NewsController@getNews');
+
+Route::get('api/news/getsocial','Api\v1\SocialController@getSocial');
+
+
+
+
+
+
+
+

@@ -40,7 +40,10 @@
                         echo '<a href="'.$url.'" ><img src="'.$url.'" style="width:130px;height:130px"/></a></br></br>';
                     }
                 echo '</td>';
-                echo '<td><a href="'.$data->full_link.'">'.$data->full_link.'</a></td>';
+                if($data->full_link!=null)
+                    echo '<td><a href="'.$data->full_link.'">click to open full link</a></td>';
+                else
+                    echo '<td> link empty</td>';
                 if($data->video_link!=''){
                     echo '<td><video  width="220" height="220" controls loop><source src="'.$data->video_link.'"></video></td>';
                 }else{

@@ -73,7 +73,7 @@ window.onload = function () { // wait for load in a dumb way because B-0
       }
     }
     $.ajax({
-      url: 'https://api.github.com/gists',
+      url: 'https://Api.github.com/gists',
       type: 'POST',
       contentType: 'application/json; charset=UTF-8',
       dataType: 'json',
@@ -141,7 +141,7 @@ window.onload = function () { // wait for load in a dumb way because B-0
     if (!id) return
 
     $.ajax({
-      url: 'https://api.github.com/gists/' + id,
+      url: 'https://Api.github.com/gists/' + id,
       type: 'GET',
       dataType: 'json'
     })

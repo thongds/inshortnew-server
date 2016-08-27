@@ -36,7 +36,7 @@
                echo'<tr class ="'.$class.'">';
                echo '<td>'.$data->post_title.'</td>';
                echo '<td>'.$data->post_content.'<br><br><label style="color :'.$color.'">'. str_word_count($data->post_content).' words</label></td>';
-               echo '<td><a href="'.$data->full_link.'">'.$data->full_link.'</a></td>';
+               echo '<td><a href="'.$data->full_link.'">click to open full link</a></td>';
                echo '<td> <a href="'.$data->post_image.'"> <img src="'.$data->post_image.'"style="width:80px;height:80px;"></a></td>';
                if($data->video_link!='')
                     echo '<td><video width="200" height="200" controls><source src="'.$data->video_link.'"></video></td>';

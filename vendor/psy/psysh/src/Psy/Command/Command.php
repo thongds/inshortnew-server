@@ -29,7 +29,7 @@ abstract class Command extends BaseCommand
      *
      * @param Application $application An Application instance
      *
-     * @api
+     * @Api
      */
     public function setApplication(Application $application = null)
     {

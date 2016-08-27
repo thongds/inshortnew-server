@@ -58,7 +58,7 @@ class MailgunTransport extends Transport
     {
         $this->beforeSendPerformed($message);
 
-        $options = ['auth' => ['api', $this->key]];
+        $options = ['auth' => ['Api', $this->key]];
 
         $to = $this->getTo($message);
 
@@ -139,7 +139,7 @@ class MailgunTransport extends Transport
      */
     public function setDomain($domain)
     {
-        $this->url = 'https://api.mailgun.net/v3/'.$domain.'/messages.mime';
+        $this->url = 'https://Api.mailgun.net/v3/'.$domain.'/messages.mime';
 
         return $this->domain = $domain;
     }
