@@ -8,6 +8,10 @@
             <input type="text" class="form-control" name="social_name" id="exampleInputEmail1" placeholder="social name">
         </div>
         <div class="form-group">
+            <label for="exampleInputEmail1">color_tag</label>
+            <input type="text"  class="form-control"   name="color_tag" id="exampleInputEmail1" placeholder="color tag">
+        </div>
+        <div class="form-group">
             <label for="exampleInputEmail1">Social logo url</label>
             <input type="file"  name="social_logo" id="exampleInputEmail1" placeholder="logo url">
         </div>

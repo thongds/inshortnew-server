@@ -79,10 +79,10 @@ class AdminController extends Controller{
             $social_name = $request->input('social_name');
             $social_logo = $request->file('social_logo');
             $video_tag = $request->file('video_tag');
+            $color_tag = $request->input('color_tag');
             $social_logo_url = $this->_getFilepath($social_logo);
             $video_tag_url = $this->_getFilepath($video_tag);
-
-            DB::table('social_info')->insert(['name'=>$social_name,'logo'=>$social_logo_url,
+            DB::table('social_info')->insert(['name'=>$social_name,'logo'=>$social_logo_url,'color_tag' => $color_tag,
                 'video_tag' =>$video_tag_url]);
             return view('admin.addnewsocial',['url'=>$social_logo_url]);
         }
