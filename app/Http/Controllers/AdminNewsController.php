@@ -13,7 +13,6 @@ class AdminNewsController extends Controller{
 
     public function index(Request $request){
         if($request->input('active')!=null){
-
             if($request->input('type') =='newspaper'){
                 $active = $request->input('active');
                 $id = $request->input('id');
@@ -44,7 +43,6 @@ class AdminNewsController extends Controller{
     }
     public function listNewsmedia(Request $request){
             $page = $request->input('page');
-            var_dump($page);
             if($request->input('active')!=null){
 
                 if($request->input('type') =='news'){
@@ -61,7 +59,7 @@ class AdminNewsController extends Controller{
 
                 }
             }
-            $news = DB::table('news')->paginate(5);
+            $news = DB::table('news')->orderBy('created','desc')->paginate(5);
             return view('admin.news.listnews_media',['news'=>$news,'page' =>$page]);
     }
     public function addNewsMedia(Request $request){

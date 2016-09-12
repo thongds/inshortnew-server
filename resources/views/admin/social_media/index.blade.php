@@ -31,13 +31,13 @@
                     $status_button = '&nbsp;<a href='.$active_url.' <button type="button" class="btn btn-warning">deactive</button></a>';
                 }
 
-                $post_url = explode("--inshortnew--",$data->post_image_url);
+                $post_url = explode("--inshortnews--",$data->post_image_url);
 
                 echo'<tr class ="'.$class.'">';
                 echo '<td>'.$data->title.'</td>';
                 echo'<td>';
                     foreach ($post_url as $url){
-                        echo '<a href="'.$url.'" ><img src="'.$url.'" style="width:130px;height:130px"/></a></br></br>';
+                        echo '<a href="'.$url.'" ><img src="'.$url.'" style="width:30px;height:30px"/></a></br></br>';
                     }
                 echo '</td>';
                 if($data->full_link!=null)

@@ -30,7 +30,7 @@ class AdminSocialMediaController extends Controller{
 
             }
         }
-        $socialMedia = DB::table('social_media')->paginate(4);
+        $socialMedia = DB::table('social_media')->orderBy('created','desc')->paginate(4);
         return view($this->pase_view_path.'index',['socialmedia' =>$socialMedia]);
     }
 
@@ -38,6 +38,13 @@ class AdminSocialMediaController extends Controller{
         if($request->isMethod('post')){
             $title = $request->input('title');
             $post_image_url = $request->input('post_image_url');
+            $url_clude ="";
+            if($post_image_url!=null){
+                foreach ($post_image_url as $url){
+                    $url_clude .=$url."--inshortnews--";
+                }
+            }
+
             $video_link = $request->input('video_link');
             $full_link  = $request->input('full_link');
             $fanpage_id = $request->input('fanpage_id');
@@ -46,22 +53,17 @@ class AdminSocialMediaController extends Controller{
             $id = $request->input('id');
 
             if($id !=null)
-                $result = DB::table('social_media')->where('id',$id)->update(['title' =>$title,'post_image_url' =>$post_image_url,
+                $result = DB::table('social_media')->where('id',$id)->update(['title' =>$title,'post_image_url' =>$url_clude,
                     'full_link' => $full_link,'fan_page_id' =>$fanpage_id,'status' => $status,'is_video' => $is_video,
                     'video_link' => $video_link
                 ]);
 
             else
 
-                $result = DB::table('social_media')->insert(['title' =>$title,'post_image_url' =>$post_image_url,
+                $result = DB::table('social_media')->insert(['title' =>$title,'post_image_url' =>$url_clude,
                 'full_link' => $full_link,'fan_page_id' =>$fanpage_id,'status' => $status,'is_video' => $is_video,
-                 'video_link' => $video_link
+                 'video_link' => $video_link,'created' => time()
                 ]);
-
-            if(!$result){
-                var_dump($result);
-                exit;
-            }
         }
         $social_data = null;
         if($request->query('id')!=null){

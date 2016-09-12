@@ -21,7 +21,7 @@ class SocialController extends Controller{
                 ,$social_media.'.full_link',$social_media.'.video_link',$fan_page.'.name as fanpage_name'
                 ,$fan_page.'.logo as fanpage_logo',
                 $social_info.'.name as social_name',$social_info.'.logo as social_logo',$social_info.'.color_tag',$social_info.'.video_tag')
-            ->where([['social_media.status',1],['fan_page.status',1],['social_info.status',1]])->get();
+            ->where([['social_media.status',1],['fan_page.status',1],['social_info.status',1]])->orderBy('created','desc')->get();
         echo json_encode($data);
     }
 }

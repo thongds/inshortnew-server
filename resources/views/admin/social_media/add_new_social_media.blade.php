@@ -7,8 +7,23 @@
         <input type="text" class="form-control" name="title" value="<?php echo $social_data !=null ?$social_data[0]->title:''; ?>" id="exampleInputEmail1" placeholder="post title">
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Post image url (*) code separate --inshortnew-- </label>
-        <textarea name="post_image_url"  class="form-control" rows="6"><?php echo $social_data !=null ?$social_data[0]->post_image_url:''; ?></textarea>
+        <label for="exampleInputEmail1">Post image url </label>
+            <div class="form-group" id="input_fields_wrap">
+                <?php
+                    if($social_data!=null){
+                        $array_image_ulr = explode("--inshortnews--",$social_data[0]->post_image_url);
+                        foreach ( $array_image_ulr as $url){
+                            echo '<div><br><input type="text" class="form-control" value="'.$url.'" name="post_image_url[]"><a href="#" class="remove_field">Remove</a></div>';
+                        }
+                    }else{
+                        echo '<div><br><input type="text" class="form-control" name="post_image_url[]"></div>';
+                    }
+
+                ?>
+
+            </div>
+            <br>
+            <button id="add_field_button" class="btn btn-danger" type="button" >Add More Images </button>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Full link *</label>
@@ -50,4 +65,28 @@
     <input type="hidden" name="id" value="<?php echo $social_data!=null?$social_data[0]->id:'' ?>">
     <button type="submit" class="btn btn-success">Submit</button>
     <?php echo Form::close()?>
+    <script>
+
+        $(document).ready(function() {
+            var max_fields      = 10; //maximum input boxes allowed
+            var wrapper         = $("#input_fields_wrap"); //Fields wrapper
+            var add_button      = $("#add_field_button"); //Add button ID
+
+            var x = 1; //initlal text box count
+
+            $(add_button).click(function(e){
+                //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append('<div><br><input type="text" name="post_image_url[]" class="form-control"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                }
+            });
+
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault();
+                $(this).parent('div').remove(); x--;
+            })
+        });
+    </script>
 @endsection
