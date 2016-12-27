@@ -33,7 +33,7 @@
 
                     echo'<tr class ="'.$class.'">';
                     echo '<td>'.$data->name.'</td>';
-                    echo '<td> <img src="'.$data->logo.'"></td>';
+                    echo '<td> <img src="'.$data->logo.'"style="width:150px;height:100px;></td>';
                     echo '<td><img src="'.$data->video_tag.'"></td>';
                     echo '<td><a href='.$edit_url.'><button type="button" class="btn btn-success">edit</button></a>
                         <a href='.$delete_url.'><button type="button" class="btn btn-danger">delete</button></a>

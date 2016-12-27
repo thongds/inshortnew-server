@@ -7,32 +7,30 @@
         <input type="text" class="form-control" name="title" value="<?php echo $social_data !=null ?$social_data[0]->title:''; ?>" id="exampleInputEmail1" placeholder="post title">
     </div>
     <div class="form-group">
-        <label for="exampleInputEmail1">Post image url </label>
+        <label for="exampleInputEmail1">link url </label>
             <div class="form-group" id="input_fields_wrap">
                 <?php
                     if($social_data!=null){
                         $array_image_ulr = explode("--inshortnews--",$social_data[0]->post_image_url);
                         foreach ( $array_image_ulr as $url){
-                            echo '<div><br><input type="text" class="form-control" value="'.$url.'" name="post_image_url[]"><a href="#" class="remove_field">Remove</a></div>';
+                            if(!empty($url))
+                                echo '<div><br><input type="text" class="form-control" value="'.$url.'" name="post_image_url[]"><a href="#" class="remove_field">Remove</a></div>';
                         }
                     }else{
-                        echo '<div><br><input type="text" class="form-control" name="post_image_url[]"></div>';
+                        //echo '<div><br><input type="text" class="form-control" name="post_image_url[]"></div>';
                     }
 
                 ?>
 
             </div>
             <br>
-            <button id="add_field_button" class="btn btn-danger" type="button" >Add More Images </button>
+            <button id="add_field_button" class="btn btn-danger" type="button" >Add More Links </button>
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Full link *</label>
         <input name="full_link" value="<?php echo $social_data !=null ?$social_data[0]->full_link:''; ?>" class="form-control" >
     </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Video link</label>
-        <input name="video_link" value="<?php echo $social_data !=null ?$social_data[0]->video_link:''; ?>" class="form-control" >
-    </div>
+
     <label > Fanpage</label>
     <select class="form-control" name="fanpage_id">
         <?php
@@ -50,11 +48,24 @@
 
     </select>
     <br>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" name ="is_video" <?php echo $social_data !=null && $social_data[0]->is_video ==1  ?"checked":''; ?> > Is video
-        </label>
-    </div>
+    <label > Post type </label>
+    <select class="form-control" name="social_content_type_id">
+        <?php
+        $social_content_type_id = $social_data!=null?$social_data[0]->social_content_type_id:-1;
+        foreach ($social_content_type as $data){
+            $selected_text = '';
+            if($social_content_type_id == $data->id){
+                $selected_text = "selected";
+                echo ' <option value="'.$data->id.'"  selected="'.$selected_text.'">'.$data->name.'</option>';
+            }else{
+                echo ' <option value="'.$data->id.'" >'.$data->name.'</option>';
+            }
+        }
+        ?>
+
+    </select>
+    <br>
+
     <br>
     <div class="checkbox">
         <label>

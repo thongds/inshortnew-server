@@ -30,47 +30,50 @@ class AdminSocialMediaController extends Controller{
 
             }
         }
-        $socialMedia = DB::table('social_media')->orderBy('created','desc')->paginate(4);
+        $socialMedia = DB::table('social_media')->orderBy('created','desc')->paginate(10);
         return view($this->pase_view_path.'index',['socialmedia' =>$socialMedia]);
     }
 
     public function addNewSocialMedia(Request $request){
-        if($request->isMethod('post')){
+        if($request->isMethod('post')) {
             $title = $request->input('title');
             $post_image_url = $request->input('post_image_url');
-            $url_clude ="";
-            if($post_image_url!=null){
-                foreach ($post_image_url as $url){
-                    $url_clude .=$url."--inshortnews--";
+            $social_content_type = $request->input('social_content_type_id');
+            $url_clude = null;
+            if ($post_image_url != null) {
+                foreach ($post_image_url as $url) {
+                        $url_clude .= $url . "--inshortnews--";
                 }
             }
 
-            $video_link = $request->input('video_link');
-            $full_link  = $request->input('full_link');
+            $full_link = $request->input('full_link');
             $fanpage_id = $request->input('fanpage_id');
-            $status= $request->input('status') == null ? 0 :1;
-            $is_video = $request->input('is_video') == null ? 0:1;
+            $status = $request->input('status') == null ? 0 : 1;
             $id = $request->input('id');
 
-            if($id !=null)
-                $result = DB::table('social_media')->where('id',$id)->update(['title' =>$title,'post_image_url' =>$url_clude,
-                    'full_link' => $full_link,'fan_page_id' =>$fanpage_id,'status' => $status,'is_video' => $is_video,
-                    'video_link' => $video_link
+            if ($id != null)
+                $result = DB::table('social_media')->where('id', $id)->update(['title' => $title, 'post_image_url' => $url_clude,
+                    'full_link' => $full_link, 'fan_page_id' => $fanpage_id, 'status' => $status,
+                    'social_content_type_id' => $social_content_type
                 ]);
-
             else
-
-                $result = DB::table('social_media')->insert(['title' =>$title,'post_image_url' =>$url_clude,
-                'full_link' => $full_link,'fan_page_id' =>$fanpage_id,'status' => $status,'is_video' => $is_video,
-                 'video_link' => $video_link,'created' => time()
+                $result = DB::table('social_media')->insert(['title' => $title, 'post_image_url' => $url_clude,
+                    'full_link' => $full_link, 'fan_page_id' => $fanpage_id, 'status' => $status,
+                     'social_content_type_id' => $social_content_type, 'created' => time()
                 ]);
+            if (!$result) {
+                var_dump($result);exit;
+            }
         }
         $social_data = null;
         if($request->query('id')!=null){
             $social_data = DB::table('social_media')->where('id',$request->query('id'))->get();
         }
         $fanpage = DB::table('fan_page')->where('status',1)->get();
-        return  view($this->pase_view_path.'add_new_social_media',['fanpage' => $fanpage,'social_data' =>$social_data]);
+        $social_post_type = DB::table('social_content_type')->where('status',1)->get();
+        return  view($this->pase_view_path.'add_new_social_media',['fanpage' => $fanpage,
+            'social_data' =>$social_data,
+            'social_content_type' => $social_post_type]);
     }
 
 }

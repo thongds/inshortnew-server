@@ -60,9 +60,9 @@ Route::get('admin/socialmedia','AdminSocialMediaController@index');
 Route::get('admin/addnewsocialmedia','AdminSocialMediaController@addNewSocialMedia');
 Route::post('admin/addnewsocialmedia','AdminSocialMediaController@addNewSocialMedia')->name('addNewSocialMedia');
 
-Route::get('api/news/getnews','Api\v1\NewsController@getNews');
+Route::get('api/news/getnews/{page}','Api\v1\NewsController@getNews');
 
-Route::get('api/news/getsocial','Api\v1\SocialController@getSocial');
+Route::get('api/news/getsocial/{page}','Api\v1\SocialController@getSocial');
 
 
 

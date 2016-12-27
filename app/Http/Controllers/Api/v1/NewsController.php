@@ -11,11 +11,17 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 class NewsController extends Controller{
 
-    public function getNews(){
+    public function getNews($page){
+        $number_row = 5;
         $data =DB::table('news')->join('newspaper','newspaper.id','=','news.newspaper_id')
             ->select('news.post_title','news.post_content','news.post_image','news.is_video','news.created','news.video_link','news.full_link'
             ,'newspaper.title_color','newspaper.paper_logo','newspaper.paper_tag_color','newspaper.video_tag_image')
-            ->where([['news.status','=',1],['newspaper.status','=',1]])->orderBy('created','desc')->get();
-        echo json_encode($data);
+            ->where([['news.status','=',1],['newspaper.status','=',1]])->offset($page*$number_row)->limit($number_row)->orderBy('created','desc')->get();
+        if(empty($data)){
+            return response()->json($data,204);
+        }else{
+            return response()->json($data);
+        }
+
     }
 }
