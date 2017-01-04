@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Http\Request;
 use App\User;
 use Validator;
+use DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -63,10 +64,35 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $result = DB::select('select * from users where user_name = ?',[$data['user_name']]);
+
+        if (!empty($result)){
+            return false;
+        }else{
+            return DB::insert('insert into users (user_name, password) values (?, ?)', [$data['user_name'], bcrypt($data['password'])]);
+        }
+    }
+    public function login(array $data){
+
+        return view('admin.login');
+    }
+    public function validateRegister(Request $request){
+//        echo '<pre>';
+//        var_dump();
+//        echo '</pre>';
+
+        $validate = $this->validate($request,['user_name'=>'required|max:255','password' => 'required|min:6','password_confirm' => 'required|same:password']);
+        if ($this->create(array('user_name'=>$request->input('user_name'),'password' => $request->input('password')))){
+            return redirect()->route('admin');
+        }else{
+            $validate_make = Validator::make(array(),array(),array());
+            $validate_make->errors()->add('field', 'username : '.$request->input('user_name') .' was exist!');
+            return redirect()->route('register')->withErrors($validate_make);
+        }
+
+    }
+    public function register(Request $request){
+
+        return view('admin.register');
     }
 }
