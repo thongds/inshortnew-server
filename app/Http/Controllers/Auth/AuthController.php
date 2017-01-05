@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use DB;
 use App\Http\Controllers\Controller;
@@ -38,7 +39,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
     /**
@@ -72,16 +73,21 @@ class AuthController extends Controller
             return DB::insert('insert into users (user_name, password) values (?, ?)', [$data['user_name'], bcrypt($data['password'])]);
         }
     }
-    public function login(array $data){
-
+    public function login(Request $request){
+        if ($request->isMethod('POST')){
+            if (Auth::attempt(['user_name' => $request->input('user_name'),'password' => $request->input('password'),'status' => 1])){
+                return redirect()->route('list_social');
+            }else{
+                $validate_make = Validator::make(array(),array(),array());
+                $validate_make->errors()->add('field', 'can not login ');
+                return redirect()->route('login')->withErrors($validate_make);
+            }
+        }
         return view('admin.login');
     }
     public function validateRegister(Request $request){
-//        echo '<pre>';
-//        var_dump();
-//        echo '</pre>';
 
-        $validate = $this->validate($request,['user_name'=>'required|max:255','password' => 'required|min:6','password_confirm' => 'required|same:password']);
+        $this->validate($request,['user_name'=>'required|max:255','password' => 'required|min:6','password_confirm' => 'required|same:password']);
         if ($this->create(array('user_name'=>$request->input('user_name'),'password' => $request->input('password')))){
             return redirect()->route('admin');
         }else{
@@ -95,4 +101,6 @@ class AuthController extends Controller
 
         return view('admin.register');
     }
+
+
 }

@@ -12,16 +12,26 @@
 
 <body>
 
-<form>
-    <header>Login</header>
-    <label>Username <span>*</span></label>
-    <input/>
-    <div class="help">At least 6 character</div>
-    <label>Password <span>*</span></label>
-    <input/>
-    <div class="help">Use upper and lowercase lettes as well</div>
-    <button>Login</button>
-</form>
+<?php echo Form::open(array('route'=>'login','method'=>'post','enctype'=>'multipart/form-data')) ?>
+<header>Login</header>
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li style="color: #00CC00">{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<label>Username <span>*</span></label>
+<input name = 'user_name'/>
+<div class="help">At least 6 character</div>
+<label>Password  <span>*</span></label>
+<input type="password" name='password'/>
+<div class="help">Use upper and lowercase lettes as well</div>
+<button type="submit">Login</button>
+
+<?php echo Form::close() ?>
 
 
 </body>

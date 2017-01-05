@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('users/user',['name'=>'Thong is the boss']);
-});
-Route::get('/user/{id}','UserController@showProfile');
-Route::get('/insert/{email}','UserController@insertUser');
+//Route::get('/', function () {
+//    return view('users/user',['name'=>'Thong is the boss']);
+//});
+//Route::get('/user/{id}','UserController@showProfile');
+//Route::get('/insert/{email}','UserController@insertUser');
 
 
 
@@ -23,7 +23,8 @@ Route::get('/insert/{email}','UserController@insertUser');
 /* auth controller group */
 
 Route::group(['namespace' => 'Auth'],function (){
-    Route::get('auth/login','AuthController@login');
+    Route::get('auth/login','AuthController@login')->name('login');
+    Route::post('auth/login','AuthController@login')->name('login');
     Route::get('auth/register','AuthController@register')->name('register');
     Route::post('auth/register','AuthController@register')->name('register');
     Route::post('auth/validate','AuthController@validateRegister')->name('validate');
@@ -57,7 +58,7 @@ Route::group(['namespace' => 'Admin'],function (){
 
 
         Route::get('admin/socialmedia','AdminSocialMediaController@index');
-        Route::get('admin/listsocial','AdminController@listsocial');
+        Route::get('admin/listsocial','AdminController@listsocial')->name('list_social');
         Route::get('admin/addsocial','AdminController@addsocial');
         Route::get('admin/socialsetting','AdminController@socialsetting');
 

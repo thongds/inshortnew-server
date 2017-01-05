@@ -16,22 +16,13 @@ use App\Http\Controllers\Controller;
 class AdminController extends Controller{
 
     public  function  __construct(){
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
     public function index(){
         return view('admin.index');
     }
-    public function login(Request $request){
-        if($request->isMethod('post')){
-            $email = $request->input('inputEmail');
-            $password = $request->input('inputPassword');
-            var_dump($email);
-            var_dump($password);
-        }
 
-        return view('admin.login');
-    }
     public function listsocial(Request $request){
         return view('admin.listsocial');
     }

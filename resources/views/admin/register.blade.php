@@ -13,7 +13,7 @@
 <body>
 
 <?php echo Form::open(array('route'=>'validate','method'=>'post','enctype'=>'multipart/form-data')) ?>
-    <header>Login</header>
+    <header>Register</header>
     @if (count($errors) > 0)
     <div class="alert alert-danger">
         <ul>
@@ -32,7 +32,7 @@
     <label>Password Confirm </label> <span>*</span>
     <input type="password" name='password_confirm'/>
     <div class="help">Use upper and lowercase lettes as well</div>
-    <button type="submit">Register</button>
+    <button type="submit">Sign up</button>
 
 <?php echo Form::close() ?>
 

@@ -14,6 +14,10 @@ $pase_view_path = "admin.social_media";
 class AdminSocialMediaController extends Controller{
     private $pase_view_path = "admin.social_media.";
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index(Request $request){
         if($request->input('active')!=null){
 
