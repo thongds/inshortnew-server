@@ -85,6 +85,10 @@ class AuthController extends Controller
         }
         return view('admin.login');
     }
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login');
+    }
     public function validateRegister(Request $request){
 
         $this->validate($request,['user_name'=>'required|max:255','password' => 'required|min:6','password_confirm' => 'required|same:password']);

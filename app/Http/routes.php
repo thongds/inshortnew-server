@@ -28,6 +28,7 @@ Route::group(['namespace' => 'Auth'],function (){
     Route::get('auth/register','AuthController@register')->name('register');
     Route::post('auth/register','AuthController@register')->name('register');
     Route::post('auth/validate','AuthController@validateRegister')->name('validate');
+    Route::get('auth/logout','AuthController@logout')->name('logout');
 });
 
 /* news controller group */
@@ -57,8 +58,8 @@ Route::group(['namespace' => 'Admin'],function (){
         /* social media controller */
 
 
-        Route::get('admin/socialmedia','AdminSocialMediaController@index');
-        Route::get('admin/listsocial','AdminController@listsocial')->name('list_social');
+        Route::get('admin/socialmedia','AdminSocialMediaController@index')->name('list_social');
+        Route::get('admin/listsocial','AdminController@listsocial');
         Route::get('admin/addsocial','AdminController@addsocial');
         Route::get('admin/socialsetting','AdminController@socialsetting');
 
