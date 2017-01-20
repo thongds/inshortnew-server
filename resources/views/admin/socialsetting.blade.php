@@ -10,7 +10,6 @@
         <tr>
             <th>Fanpage Name</th>
             <th>Logo </th>
-            <th>video tag</th>
             <th>action</th>
         </tr>
         </thead>
